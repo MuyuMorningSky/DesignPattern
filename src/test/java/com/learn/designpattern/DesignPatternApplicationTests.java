@@ -4,6 +4,7 @@ import com.learn.designpattern.core.chain.service.ChainFactory;
 import com.learn.designpattern.core.decorate.DecorateFactory;
 import com.learn.designpattern.core.observer.ObserverFactory;
 import com.learn.designpattern.core.proxy.ProxyFactory;
+import com.learn.designpattern.core.singleton.SingletonFactory;
 import com.learn.designpattern.core.strategy.StrategyFactory;
 import com.learn.designpattern.core.template.TemplateFactory;
 import org.junit.Test;
@@ -33,6 +34,9 @@ public class DesignPatternApplicationTests {
 
     @Autowired
     private ObserverFactory observerFactory;
+
+    @Autowired
+    private SingletonFactory singletonFactory;
 
     @Test
     public void contextLoads() {
@@ -68,5 +72,10 @@ public class DesignPatternApplicationTests {
     public void observer() {
         observerFactory.jdkObserver();
         observerFactory.springObserver();
+    }
+
+    @Test
+    public void singleton() {
+        singletonFactory.enumSingleton();
     }
 }
