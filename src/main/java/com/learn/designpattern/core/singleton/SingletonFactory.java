@@ -11,10 +11,10 @@ public class SingletonFactory {
         System.out.println(hungerSingleton1 == hungerSingleton2);
     }
 
-    public void fullSingleton() {
-        FullSingleton fullSingleton1 = FullSingleton.getInstance();
-        FullSingleton fullSingleton2 = FullSingleton.getInstance();
-        System.out.println(fullSingleton1 == fullSingleton2);
+    public void lazySingleton() {
+        LazySingleton lazySingleton1 = LazySingleton.getInstance();
+        LazySingleton lazySingleton2 = LazySingleton.getInstance();
+        System.out.println(lazySingleton1 == lazySingleton2);
     }
 
     public void doubleCheckSingleton() {
