@@ -9,12 +9,14 @@ import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.Enhancer;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Proxy;
+
 @Component
 public class ProxyFactory {
 
     public void jdkProxy(){
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-        OrderService orderService = new JdkProxy(new OrderServiceImpl()).getProxy();
+        OrderService orderService = (OrderService) Proxy.newProxyInstance(OrderService.class.getClassLoader(), new Class[]{OrderService.class}, new JdkProxy(new OrderServiceImpl()));
         orderService.service02();
     }
 

@@ -2,6 +2,7 @@ package com.learn.designpattern.core.proxy.jdk;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.annotation.Target;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -16,16 +17,6 @@ public class JdkProxy implements InvocationHandler {
 
     public JdkProxy(Object target) {
         this.target = target;
-    }
-
-    /**
-     * 使用jdk动态代理创建代理类
-     *
-     * @param <T>
-     * @return
-     */
-    public <T> T getProxy() {
-        return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
 
     @Override
