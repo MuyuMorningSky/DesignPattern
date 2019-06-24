@@ -1,10 +1,12 @@
 package com.learn.designpattern.core.decorate.impl;
 
-import com.learn.designpattern.core.decorate.AbstractGatewayComponent;
+import com.learn.designpattern.core.decorate.GatewayService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-public class GatewayComponent extends AbstractGatewayComponent {
+@Service
+public class GatewayServiceImpl implements GatewayService {
 
     @Override
     public void service() {

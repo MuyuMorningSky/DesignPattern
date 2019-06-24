@@ -49,7 +49,7 @@ public class DesignPatternApplicationTests {
 
     @Test
     public void decorate(){
-        decorateFactory.getGatewayComponent().service();
+        decorateFactory.getGatewayComponent();
     }
 
     @Test

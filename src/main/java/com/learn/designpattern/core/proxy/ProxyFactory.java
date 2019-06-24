@@ -16,7 +16,8 @@ public class ProxyFactory {
 
     public void jdkProxy(){
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-        OrderService orderService = (OrderService) Proxy.newProxyInstance(OrderService.class.getClassLoader(), new Class[]{OrderService.class}, new JdkProxy(new OrderServiceImpl()));
+//        OrderService orderService = (OrderService) Proxy.newProxyInstance(OrderService.class.getClassLoader(), new Class[]{OrderService.class}, new JdkProxy(new OrderServiceImpl()));
+        OrderService orderService = (OrderService) Proxy.newProxyInstance(OrderServiceImpl.class.getClassLoader(), OrderServiceImpl.class.getInterfaces(), new JdkProxy(new OrderServiceImpl()));
         orderService.service02();
     }
 

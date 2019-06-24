@@ -1,15 +1,12 @@
 package com.learn.designpattern.core.decorate.impl;
 
 import com.learn.designpattern.core.decorate.AbstractDecorate;
-import com.learn.designpattern.core.decorate.AbstractGatewayComponent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class LimitDecorate extends AbstractDecorate {
-
-    public LimitDecorate(AbstractGatewayComponent abstractGatewayComponent) {
-        super(abstractGatewayComponent);
-    }
 
     @Override
     public void service() {

@@ -1,18 +1,19 @@
 package com.learn.designpattern.core.decorate;
 
+import org.springframework.stereotype.Component;
 
-public class AbstractDecorate extends AbstractGatewayComponent{
+@Component
+public class AbstractDecorate implements GatewayService {
 
-    private AbstractGatewayComponent abstractGatewayComponent;
+    private GatewayService gatewayService;
 
-    public AbstractDecorate(AbstractGatewayComponent abstractGatewayComponent) {
-        this.abstractGatewayComponent = abstractGatewayComponent;
+    public void setAbstractDecorate(GatewayService gatewayService) {
+        this.gatewayService = gatewayService;
     }
 
     @Override
     public void service() {
-        abstractGatewayComponent.service();
+        gatewayService.service();
     }
-
 
 }
