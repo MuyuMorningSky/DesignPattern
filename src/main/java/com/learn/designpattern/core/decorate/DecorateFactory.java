@@ -16,10 +16,10 @@ public class DecorateFactory {
     @Autowired
     private GatewayServiceImpl gatewayServiceImpl;
 
-    public void getGatewayComponent() {
+    public LimitDecorate getGatewayComponent() {
         //网关 ---》 日志  --》 限流
         logDecorate.setAbstractDecorate(gatewayServiceImpl);
         limitDecorate.setAbstractDecorate(logDecorate);
-        limitDecorate.service();
+        return limitDecorate;
     }
 }

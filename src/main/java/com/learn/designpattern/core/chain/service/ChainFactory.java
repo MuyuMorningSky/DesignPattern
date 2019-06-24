@@ -2,44 +2,64 @@ package com.learn.designpattern.core.chain.service;
 
 import com.learn.designpattern.core.chain.dao.GatewayHandlerMapper;
 import com.learn.designpattern.core.chain.domain.GatewayHandlerEntity;
+import com.learn.designpattern.core.chain.service.impl.BlacklistHandler;
+import com.learn.designpattern.core.chain.service.impl.ConversationHandler;
+import com.learn.designpattern.core.chain.service.impl.CurrentLimitHandler;
 import com.learn.designpattern.util.SpringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class ChainFactory {
+
+    @Autowired
+    private BlacklistHandler blacklistHandler;
+    @Autowired
+    private ConversationHandler conversationHandler;
+    @Autowired
+    private CurrentLimitHandler currentLimitHandler;
+
+    public GatewayHandler getGatewayHandler() {
+        blacklistHandler.setNextGatewayHandler(conversationHandler);
+        conversationHandler.setNextGatewayHandler(currentLimitHandler);
+        return blacklistHandler;
+    }
+
 
     @Autowired
     private GatewayHandlerMapper gatewayHandlerMapper;
 
     private GatewayHandler gatewayHandler;
 
-    public GatewayHandler getGatewayHandler() {
-        //1. 数据库取第一个handlerId
-        GatewayHandlerEntity firstGatewayHandlerEntity = gatewayHandlerMapper.getFirstGatewayHandlerEntity();
-        //2. spring容器获取第一个handler
-        String handlerId = firstGatewayHandlerEntity.getHandlerId();
-        GatewayHandler firstGatewayHandler = SpringUtils.getBean(handlerId, GatewayHandler.class);
-        String nextHandlerId = firstGatewayHandlerEntity.getNextHandlerId();
-        //3. 设置临时实体
-        GatewayHandler gatewayHandler = firstGatewayHandler;
-        while (StringUtils.isNotBlank(nextHandlerId)) {
-            //5. spring容器获取下一个handler
-            GatewayHandler nextGatewayHandler = SpringUtils.getBean(nextHandlerId, GatewayHandler.class);
-            gatewayHandler.setNextGatewayHandler(nextGatewayHandler);
-            //4. 数据库获取下一个handlerId
-            GatewayHandlerEntity nextGatewayHandlerEntity = gatewayHandlerMapper.getGatewayHandlerEntity(nextHandlerId);
-            if (nextGatewayHandlerEntity == null) {
-                break;
-            }
-            nextHandlerId = nextGatewayHandlerEntity.getNextHandlerId();
-            //6. 设置下一个handler
-            gatewayHandler = nextGatewayHandler;
-        }
-        this.gatewayHandler = gatewayHandler;
-        return firstGatewayHandler;
-    }
+
+
+//    public GatewayHandler getGatewayHandler() {
+//        //1. 数据库取第一个handlerId
+//        GatewayHandlerEntity firstGatewayHandlerEntity = gatewayHandlerMapper.getFirstGatewayHandlerEntity();
+//        //2. spring容器获取第一个handler
+//        String handlerId = firstGatewayHandlerEntity.getHandlerId();
+//        GatewayHandler firstGatewayHandler = SpringUtils.getBean(handlerId, GatewayHandler.class);
+//        String nextHandlerId = firstGatewayHandlerEntity.getNextHandlerId();
+//        //3. 设置临时实体
+//        GatewayHandler gatewayHandler = firstGatewayHandler;
+//        while (StringUtils.isNotBlank(nextHandlerId)) {
+//            //5. spring容器获取下一个handler
+//            GatewayHandler nextGatewayHandler = SpringUtils.getBean(nextHandlerId, GatewayHandler.class);
+//            gatewayHandler.setNextGatewayHandler(nextGatewayHandler);
+//            //4. 数据库获取下一个handlerId
+//            GatewayHandlerEntity nextGatewayHandlerEntity = gatewayHandlerMapper.getGatewayHandlerEntity(nextHandlerId);
+//            if (nextGatewayHandlerEntity == null) {
+//                break;
+//            }
+//            nextHandlerId = nextGatewayHandlerEntity.getNextHandlerId();
+//            //6. 设置下一个handler
+//            gatewayHandler = nextGatewayHandler;
+//        }
+//        this.gatewayHandler = gatewayHandler;
+//        return firstGatewayHandler;
+//    }
 
 //    public GatewayHandler getGatewayHandler() {
 //        if (gatewayHandler != null) {
