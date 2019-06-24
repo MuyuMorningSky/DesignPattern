@@ -6,6 +6,11 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
+/**
+ * CgLib动态代理不需要接口
+ * @author zhangw
+ * @date 17:29 17:29
+ **/
 @Slf4j
 public class CgLibProxy implements MethodInterceptor {
 

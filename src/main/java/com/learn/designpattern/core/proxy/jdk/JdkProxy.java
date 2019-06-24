@@ -7,6 +7,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * Jdk动态代理需要有 接口+ 对应实现类
+ * @author zhangw
+ * @date 17:29 17:29
+ **/
 @Slf4j
 public class JdkProxy implements InvocationHandler {
 

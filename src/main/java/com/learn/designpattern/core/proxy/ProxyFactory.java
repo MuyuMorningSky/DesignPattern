@@ -21,11 +21,10 @@ public class ProxyFactory {
     }
 
     public void cglibProxy() {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:MyProject\\DesignPattern\\code");
-        CgLibProxy cgLibProxy = new CgLibProxy();
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:code");
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(OrderServiceImpl.class);
-        enhancer.setCallback(cgLibProxy);
+        enhancer.setCallback(new CgLibProxy());
         OrderServiceImpl orderServiceImpl = (OrderServiceImpl) enhancer.create();
         orderServiceImpl.service01();
     }
